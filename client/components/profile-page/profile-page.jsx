@@ -3,13 +3,37 @@ import $ from 'jquery';
 
 import InputBox from './input-box.jsx'
 
-function ProfilePage() {
+function ProfilePage(props) {
+  const {userData, changePage} = props;
+
+  const {commuteTime, commuteDistance, hourlyPay} = userData;
+
+  function onButtonClick() {
+    storeData();
+    changePage('display');
+  }
+
   return (
     <div className='profilePage'>
-      <InputBox label='Commute time' boxId='commute-time'/>
-      <InputBox label='Commute distance' boxId='commute-distance'/>
-      <InputBox label='Hourly pay' boxId='hourly-pay'/>
-      <button onClick={storeData} >Submit</button>
+      <InputBox
+      label='Commute time'
+      boxId='commute-time'
+      currentValue={commuteTime}
+      />
+
+      <InputBox
+      label='Commute distance'
+      boxId='commute-distance'
+      currentValue={commuteDistance}
+      />
+
+      <InputBox
+      label='Hourly pay'
+      boxId='hourly-pay'
+      currentValue={hourlyPay}
+      />
+
+      <button onClick={onButtonClick}>Submit</button>
     </div>
   );
 }

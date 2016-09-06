@@ -9,11 +9,11 @@ const PAGES = ['profile', 'display'];
 class App extends React.Component {
   constructor() {
     super();
-    this.state = {currentPage: 'display'};
+    this.state = {currentPage: 'profile'};
   }
 
   changePage(pageName) {
-    if (!PAGES.include(pageName)) {
+    if (!PAGES.includes(pageName)) {
       throw new Error(`${pageName} is not a valid page`);
     }
 
@@ -21,20 +21,60 @@ class App extends React.Component {
   }
 
   render() {
-    if (this.state.currentPage === 'display') {
-      return (
-        <DisplayPage />
-      );
-    }
+    let display = [
+      <nav>
+        <p
+        className='navbar-link'
+        id='display-page-link'
+        onClick={this.changePage.bind(this, 'display')}
+        >
+        Display page
+        </p>
+
+        <p
+        className='navbar-link'
+        id='profile-page-link'
+        onClick={this.changePage.bind(this, 'profile')}
+        >
+        Profile page
+        </p>
+      </nav>
+    ];
 
     if (this.state.currentPage === 'profile') {
-      return (
-        <ProfilePage />
+      display.push(
+        <ProfilePage
+        userData={getData()}
+        changePage={this.changePage.bind(this)}
+        />
       );
+    } else if (this.state.currentPage === 'display') {
+      display.push(
+        <DisplayPage userData={getData()} />
+      );
+    } else {
+      throw new Error('this.state.page is not valid');
     }
 
-    throw new Error('this.state.page is not valid');
+    return (
+      <div className='app'>
+        {display}
+      </div>
+    )
+
+
   }
 }
+
+
+function getData() {
+  const commuteTime = localStorage.getItem('commuteTime');
+  const commuteDistance = localStorage.getItem('commuteDistance');
+  const hourlyPay = localStorage.getItem('hourlyPay');
+
+  return {commuteTime, commuteDistance, hourlyPay};
+}
+
+
 
 ReactDOM.render(<App />, document.getElementById('content'));

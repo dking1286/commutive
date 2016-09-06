@@ -1,10 +1,12 @@
 import React from 'react';
 
 function InputBox(props) {
+  const {label, boxId, currentValue} = props;
+
   return (
     <div className='input-box'>
-      <p>{props.label}</p>
-      <input type='text' id={props.boxId} />
+      <p>{label}</p>
+      <input type='text' id={boxId} defaultValue={currentValue || ''} />
     </div>
   );
 }

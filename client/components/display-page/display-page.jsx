@@ -4,8 +4,8 @@ const COST_PER_MILE = 0.50;
 const DAYS_PER_MONTH = 30;
 const MONTH_TO_TEN_YEAR_FACTOR = 173;
 
-function DisplayPage() {
-  const {monthlyCost, tenYearCost} = calculateCosts();
+function DisplayPage(props) {
+  const {monthlyCost, tenYearCost} = calculateCosts(props.userData);
 
   return (
     <div className='display-page'>
@@ -20,10 +20,9 @@ function DisplayPage() {
   );
 }
 
-function calculateCosts() {
-  const commuteTime = localStorage.getItem('commuteTime');
-  const commuteDistance = localStorage.getItem('commuteDistance');
-  const hourlyPay = localStorage.getItem('hourlyPay');
+
+function calculateCosts(userData) {
+  const {commuteTime, commuteDistance, hourlyPay} = userData;
 
   const commuteTimeCostPerDay = hourlyPay * commuteTime;
   const commuteDistanceCostPerDay = commuteDistance * COST_PER_MILE;
