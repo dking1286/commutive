@@ -8,21 +8,12 @@ const app = express();
 
 app.set('view engine', 'jade');
 
-app.use((req, res, next) => {
-  console.log(req);
-  next();
-});
-
 app.use(
   express.static(path.join(__dirname, '../client')),
   createLocalsObject,
+  logRequests,
   bodyParser.urlencoded({extended : true})
 );
-
-app.use((req, res, next) => {
-  console.log(req.body);
-  next();
-})
 
 // ROUTES
 app.get('/', (req, res) => {
@@ -34,6 +25,10 @@ app.post('/login', userController.getUserData, (req, res) => {
 });
 
 app.post('/signup', userController.createUser, (req, res) => {
+  res.json(res.locals.user);
+});
+
+app.post('/user/:email', userController.updateUser, (req, res) => {
   res.json(res.locals.user);
 });
 
@@ -49,6 +44,11 @@ app.use((req, res) => {
 app.listen(3000, () => {
   console.log('Listening on PORT 3000');
 });
+
+function logRequests(req, res, next) {
+  console.log(req.method, req.url);
+  next();
+}
 
 
 function createLocalsObject(req, res, next) {
