@@ -21,44 +21,63 @@ class App extends React.Component {
   }
 
   render() {
-    let display = [
-      <nav>
-        <p
-        className='navbar-link'
-        id='display-page-link'
-        onClick={this.changePage.bind(this, 'display')}
-        >
-        Display page
-        </p>
+    let pageDisplay;
 
-        <p
-        className='navbar-link'
-        id='profile-page-link'
-        onClick={this.changePage.bind(this, 'profile')}
-        >
-        Profile page
-        </p>
-      </nav>
-    ];
+    switch (this.state.currentPage) {
+      case 'profile':
+        pageDisplay = (
+          <ProfilePage
+          userData={getData()}
+          changePage={this.changePage.bind(this)}
+          />
+        );
+        break;
 
-    if (this.state.currentPage === 'profile') {
-      display.push(
-        <ProfilePage
-        userData={getData()}
-        changePage={this.changePage.bind(this)}
-        />
-      );
-    } else if (this.state.currentPage === 'display') {
-      display.push(
-        <DisplayPage userData={getData()} />
-      );
-    } else {
-      throw new Error('this.state.page is not valid');
+      case 'display':
+        pageDisplay = (
+          <DisplayPage userData={getData()} />
+        );
+        break;
+
+      default:
+        throw new Error('this.state.page is not valid');
     }
+
+    /*
+    if (this.state.currentPage === 'profile') {
+
+    }
+
+    else if (this.state.currentPage === 'display') {
+
+    }
+
+    else {
+
+    }
+    */
 
     return (
       <div className='app'>
-        {display}
+        <nav>
+          <p
+          className='navbar-link'
+          id='display-page-link'
+          onClick={this.changePage.bind(this, 'display')}
+          >
+          Display page
+          </p>
+
+          <p
+          className='navbar-link'
+          id='profile-page-link'
+          onClick={this.changePage.bind(this, 'profile')}
+          >
+          Profile page
+          </p>
+        </nav>
+
+        {pageDisplay}
       </div>
     )
 
