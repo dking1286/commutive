@@ -32,9 +32,6 @@ app.post('/user/:email', userController.updateUser, (req, res) => {
   res.json(res.locals.user);
 });
 
-app.get('/users', userController.getUsers, (req, res) => {
-  res.json(res.locals.data);
-});
 
 app.use((req, res) => {
   res.status(400);
@@ -45,6 +42,8 @@ app.listen(3000, () => {
   console.log('Listening on PORT 3000');
 });
 
+
+// Middleware functions
 function logRequests(req, res, next) {
   console.log(req.method, req.url);
   next();

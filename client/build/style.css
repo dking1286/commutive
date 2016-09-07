@@ -17,6 +17,10 @@ html {
         top: 0;
         left: 0;
         background-color: white; }
+        html body #content .top-navbar .navbar-link {
+          color: blue; }
+        html body #content .top-navbar .navbar-link:hover {
+          text-decoration: underline; }
       html body #content .page-content {
         width: 50%;
         min-height: 50%;

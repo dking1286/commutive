@@ -5,6 +5,7 @@ import ProfilePage from './components/profile-page/profile-page.jsx';
 import DisplayPage from './components/display-page/display-page.jsx';
 import LoginPage from './components/login-page/login-page.jsx';
 import SignupPage from './components/signup-page/signup-page.jsx';
+import InfoPage from './components/info-page/info-page.jsx'
 
 class App extends React.Component {
   constructor() {
@@ -63,6 +64,18 @@ class App extends React.Component {
           >
             Logout
           </p>
+
+          <p
+          className='navbar-link'
+          id='info-link'
+          onClick={this.changePage.bind(this, {
+            pageName: 'info',
+            navbarVisible: true,
+            userData: this.state.userData
+          })}
+          >
+            About your results
+          </p>
         </nav>
       );
     }
@@ -96,6 +109,12 @@ class App extends React.Component {
       case 'display':
         pageDisplay = (
           <DisplayPage userData={this.state.userData} />
+        );
+        break;
+
+      case 'info':
+        pageDisplay = (
+          <InfoPage />
         );
         break;
 

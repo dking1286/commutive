@@ -9,7 +9,7 @@ function DisplayPage(props) {
 
   return (
     <div className='page-content'>
-      <h1>Your results:</h1>
+      <h1>Your results</h1>
       <p>
         Each month, your commute costs ${monthlyCost}.
       </p>
