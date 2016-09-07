@@ -7,13 +7,25 @@ function LoginPage(props) {
   const {changePage} = props;
 
   return (
-    <div className='login-page'>
-      <p onClick={() => changePage({pageName: 'signup'})}>
-        Not a member yet? Sign up!
-      </p>
+    <div className='page-content'>
+      <h1>Login</h1>
       <InputBox label='Email' boxId='email-box' currentValue=''/>
-      <InputBox label='Password' boxId='password-box' currentValue=''/>
+      <InputBox type='password' label='Password' boxId='password-box' currentValue=''/>
       <button onClick={sendLogin}>Log in!</button>
+
+      <p className='bottom-link-wrapper'>
+        Not a member yet? 
+        <span
+        className='bottom-link'
+        onClick={() => changePage({
+          pageName: 'signup',
+          navbarVisible: false,
+          userData: null
+        })}
+        >
+          Sign up!
+        </span>
+      </p>
     </div>
   );
 
@@ -28,7 +40,7 @@ function LoginPage(props) {
 
     $.ajax({
       method: 'POST',
-      url: 'https://localhost:3000/signup',
+      url: 'http://localhost:3000/login',
       data: {email, password},
 
       success(userData) {

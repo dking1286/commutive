@@ -7,15 +7,27 @@ function SignupPage(props) {
   const {changePage} = props;
 
   return (
-    <div className='signup-page'>
-      <p onClick={() => changePage({pageName: 'login'})}>
-        Already a member? Log in!
-      </p>
+    <div className='page-content'>
+      <h1>Sign Up</h1>
       <InputBox label='Email' boxId='email-box' currentValue=''/>
       <InputBox label='First Name' boxId='first-name-box' currentValue=''/>
       <InputBox label='Last Name' boxId='last-name-box' currentValue=''/>
       <InputBox type='password' label='Password' boxId='password-box' currentValue=''/>
       <button onClick={sendSignup}>Sign up!</button>
+
+      <p className='bottom-link-wrapper'>
+        Already a member?
+        <span
+        className='bottom-link'
+        onClick={() => changePage({
+          pageName: 'login',
+          navbarVisible: false,
+          userData: null
+        })}
+        >
+          Log in!
+        </span>
+      </p>
     </div>
   );
 
@@ -50,7 +62,6 @@ function SignupPage(props) {
       }
     });
   }
-
 }
 
 module.exports = SignupPage;

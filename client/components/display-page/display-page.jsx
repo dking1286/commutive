@@ -1,14 +1,15 @@
 import React from 'react';
 
 const COST_PER_MILE = 0.50;
-const DAYS_PER_MONTH = 30;
+const DAYS_PER_MONTH = 20;
 const MONTH_TO_TEN_YEAR_FACTOR = 173;
 
 function DisplayPage(props) {
   const {monthlyCost, tenYearCost} = calculateCosts(props.userData);
 
   return (
-    <div className='display-page'>
+    <div className='page-content'>
+      <h1>Your results:</h1>
       <p>
         Each month, your commute costs ${monthlyCost}.
       </p>

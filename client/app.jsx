@@ -27,21 +27,41 @@ class App extends React.Component {
 
     if (this.state.navbarVisible) {
       navbarDisplay = (
-        <nav>
+        <nav className='top-navbar'>
           <p
           className='navbar-link'
           id='display-page-link'
-          onClick={this.changePage.bind(this, 'display')}
+          onClick={this.changePage.bind(this, {
+            pageName: 'display',
+            navbarVisible: true,
+            userData: this.state.userData,
+          })}
           >
-          Display page
+            Your results
           </p>
 
           <p
           className='navbar-link'
           id='profile-page-link'
-          onClick={this.changePage.bind(this, 'profile')}
+          onClick={this.changePage.bind(this, {
+            pageName: 'profile',
+            navbarVisible: true,
+            userData: this.state.userData,
+          })}
           >
-          Profile page
+            Your profile
+          </p>
+
+          <p
+          className='navbar-link'
+          id='logout-link'
+          onClick={this.changePage.bind(this, {
+            pageName: 'login',
+            navbarVisible: false,
+            userData: null
+          })}
+          >
+            Logout
           </p>
         </nav>
       );
@@ -67,7 +87,7 @@ class App extends React.Component {
       case 'profile':
         pageDisplay = (
           <ProfilePage
-          userData={getData()}
+          userData={this.state.userData}
           changePage={this.changePage.bind(this)}
           />
         );
@@ -75,7 +95,7 @@ class App extends React.Component {
 
       case 'display':
         pageDisplay = (
-          <DisplayPage userData={getData()} />
+          <DisplayPage userData={this.state.userData} />
         );
         break;
 
@@ -90,15 +110,6 @@ class App extends React.Component {
       </div>
     )
   }
-}
-
-
-function getData() {
-  const commuteTime = localStorage.getItem('commuteTime');
-  const commuteDistance = localStorage.getItem('commuteDistance');
-  const hourlyPay = localStorage.getItem('hourlyPay');
-
-  return {commuteTime, commuteDistance, hourlyPay};
 }
 
 
