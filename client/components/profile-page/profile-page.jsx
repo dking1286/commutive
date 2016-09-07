@@ -1,17 +1,12 @@
 import React from 'react';
 import $ from 'jquery';
 
-import InputBox from './input-box.jsx'
+import InputBox from './../general/input-box.jsx'
 
 function ProfilePage(props) {
   const {userData, changePage} = props;
 
   const {commuteTime, commuteDistance, hourlyPay} = userData;
-
-  function onButtonClick() {
-    storeData();
-    changePage('display');
-  }
 
   return (
     <div className='profilePage'>
@@ -36,12 +31,25 @@ function ProfilePage(props) {
       <button onClick={onButtonClick}>Submit</button>
     </div>
   );
+
+
+  function onButtonClick() {
+    storeData();
+    changePage('display', true);
+  }
+
+
+  function storeData() {
+    localStorage.setItem('commuteTime', $('#commute-time').val());
+    localStorage.setItem('commuteDistance', $('#commute-distance').val());
+    localStorage.setItem('hourlyPay', $('#hourly-pay').val());
+  }
 }
 
-function storeData() {
-  localStorage.setItem('commuteTime', $('#commute-time').val());
-  localStorage.setItem('commuteDistance', $('#commute-distance').val());
-  localStorage.setItem('hourlyPay', $('#hourly-pay').val());
-}
+
+
+
+
+
 
 module.exports = ProfilePage;

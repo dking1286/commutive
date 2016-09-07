@@ -4,9 +4,9 @@
   "description": "Helping you to design your living situation for a better life.",
   "main": "main.js",
   "scripts": {
-    "start": "node_modules/.bin/gulp",
+    "frontend-build": "node_modules/.bin/gulp",
     "test": "npm test",
-    "server": "nodemon server/server.js"
+    "start": "nodemon server/server.js"
   },
   "author": "Daniel O. King",
   "license": "ISC",
@@ -23,6 +23,7 @@
     "watchify": "^3.7.0"
   },
   "dependencies": {
+    "body-parser": "^1.15.2",
     "express": "^4.14.0",
     "jade": "^1.11.0",
     "jquery": "^3.1.0",

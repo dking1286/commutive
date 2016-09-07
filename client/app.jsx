@@ -1,29 +1,69 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import ProfilePage from './components/profile-page/profile-page.jsx'
-import DisplayPage from './components/display-page/display-page.jsx'
-
-const PAGES = ['profile', 'display'];
+import ProfilePage from './components/profile-page/profile-page.jsx';
+import DisplayPage from './components/display-page/display-page.jsx';
+import LoginPage from './components/login-page/login-page.jsx';
+import SignupPage from './components/signup-page/signup-page.jsx';
 
 class App extends React.Component {
   constructor() {
     super();
-    this.state = {currentPage: 'profile'};
+    this.state = {
+      currentPage: 'login',
+      navbarVisible: false,
+      userData: null
+    };
   }
 
-  changePage(pageName) {
-    if (!PAGES.includes(pageName)) {
-      throw new Error(`${pageName} is not a valid page`);
-    }
+  changePage(options) {
+    const {pageName, navbarVisible, userData} = options;
 
-    this.setState({currentPage: pageName});
+    this.setState({currentPage: pageName, navbarVisible, userData});
   }
 
   render() {
-    let pageDisplay;
+    let pageDisplay, navbarDisplay;
+
+    if (this.state.navbarVisible) {
+      navbarDisplay = (
+        <nav>
+          <p
+          className='navbar-link'
+          id='display-page-link'
+          onClick={this.changePage.bind(this, 'display')}
+          >
+          Display page
+          </p>
+
+          <p
+          className='navbar-link'
+          id='profile-page-link'
+          onClick={this.changePage.bind(this, 'profile')}
+          >
+          Profile page
+          </p>
+        </nav>
+      );
+    }
 
     switch (this.state.currentPage) {
+      case 'login':
+        pageDisplay = (
+          <LoginPage
+          changePage={this.changePage.bind(this)}
+          />
+        );
+        break;
+
+      case 'signup':
+        pageDisplay = (
+          <SignupPage
+          changePage={this.changePage.bind(this)}
+          />
+        );
+        break;
+
       case 'profile':
         pageDisplay = (
           <ProfilePage
@@ -43,45 +83,12 @@ class App extends React.Component {
         throw new Error('this.state.page is not valid');
     }
 
-    /*
-    if (this.state.currentPage === 'profile') {
-
-    }
-
-    else if (this.state.currentPage === 'display') {
-
-    }
-
-    else {
-
-    }
-    */
-
     return (
       <div className='app'>
-        <nav>
-          <p
-          className='navbar-link'
-          id='display-page-link'
-          onClick={this.changePage.bind(this, 'display')}
-          >
-          Display page
-          </p>
-
-          <p
-          className='navbar-link'
-          id='profile-page-link'
-          onClick={this.changePage.bind(this, 'profile')}
-          >
-          Profile page
-          </p>
-        </nav>
-
+        {navbarDisplay}
         {pageDisplay}
       </div>
     )
-
-
   }
 }
 
