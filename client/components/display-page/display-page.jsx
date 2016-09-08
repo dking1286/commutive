@@ -25,8 +25,8 @@ function DisplayPage(props) {
 function calculateCosts(userData) {
   const {commuteTime, commuteDistance, hourlyPay} = userData;
 
-  const commuteTimeCostPerDay = hourlyPay * commuteTime;
-  const commuteDistanceCostPerDay = commuteDistance * COST_PER_MILE;
+  const commuteTimeCostPerDay = 2 * hourlyPay * commuteTime;
+  const commuteDistanceCostPerDay = 2 * commuteDistance * COST_PER_MILE;
 
   const monthlyCost = DAYS_PER_MONTH * (commuteTimeCostPerDay + commuteDistanceCostPerDay);
   const tenYearCost = monthlyCost * MONTH_TO_TEN_YEAR_FACTOR;
